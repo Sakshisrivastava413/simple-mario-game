@@ -4,15 +4,16 @@ var gameObject = {
 
   preload: function () {
 
-    game.load.image('background', './assets/background.jpg');
+    game.load.image('background', './assets/download.jpeg');
     game.load.spritesheet('tiles', './assets/tiles.png')
   },
 
   create: function () {
-    
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.add.sprite(0, 0, 'background');
 
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    var back = game.add.sprite(0, 0, 'background');
+    back.width = 1275
+    back.height = 650
   },
 
   update: function () {
