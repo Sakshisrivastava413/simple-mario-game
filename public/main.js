@@ -50,9 +50,29 @@ var gameObject = {
 
     var hitTiles = game.physics.arcade.collide(player, platforms);
 
+    var cursor = game.input.keyboard.createCursorKeys();
+
+    player.body.velocity.x = 0;
+    if(cursor.left.isDown) {
+      player.body.velocity.x = -150;
+      player.animations.play('left');
+    }
+    else if(cursor.right.isDown) {
+      player.body.velocity.x = 150;
+      player.animations.play('right');
+    }
+    else {
+      player.animations.stop();
+      player.frame = 4;
+    }
+
+    if(cursor.up.isDown && player.body.touching.down && hitTiles) {
+      player.body.velocity.y = -400;
+    }
+}
   }
 
-}
+
 
 game.state.add('gameObject', gameObject);
 game.state.start('gameObject');
