@@ -48,6 +48,8 @@ var gameObject = {
 
   update: function () {
 
+    var hitTiles = game.physics.arcade.collide(player, platforms);
+
   }
 
 }
