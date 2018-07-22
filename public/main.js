@@ -1,6 +1,6 @@
 var game = new Phaser.Game(1275, 650, Phaser.CANVAS);
 
-var platforms;
+var platforms, back;
 
 var gameObject = {
 
@@ -14,12 +14,12 @@ var gameObject = {
   create: function () {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    var back = game.add.sprite(0, 0, 'background');
-    back.width = 1275;
-    back.height = 650;
+    back = game.add.tileSprite(0, 0, 3000, 3000, 'background');
+    back.tileScale.set(3.6, 5)
 
     platforms = game.add.group();
     platforms.enableBody = true;
+    game.world.setBounds(0, 0, 1920, 650);
 
 
     var ground = platforms.create(0, game.world.height - 47, 'tiles');
@@ -43,6 +43,8 @@ var gameObject = {
     player.animations.add('right', [5, 6, 7, 8], 10, true);
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.frame = 4
+    player.fixedToCamera = true;
+    // game.camera.follow(player);
 
   },
 
@@ -56,10 +58,14 @@ var gameObject = {
     if(cursor.left.isDown) {
       player.body.velocity.x = -150;
       player.animations.play('left');
+    back.tilePosition.x -= 3;
+      
     }
     else if(cursor.right.isDown) {
       player.body.velocity.x = 150;
       player.animations.play('right');
+    back.tilePosition.x += 3;
+      
     }
     else {
       player.animations.stop();
